@@ -5,7 +5,7 @@ namespace G__Marching_Sqaure
 {
     public class MarchingSquare
     {
-        public static List<Line> marching_square(int[] xVector, int[] yVector, double[,] Data, int threshold)
+        public static List<Line> marching_square(int[] xVector, int[] yVector, double[,] Data, double threshold)
         {
             List<Line> linesList = new List<Line>();
 
@@ -40,10 +40,10 @@ namespace G__Marching_Sqaure
                         Point C = new Point(xVector[i + 1], yVector[j]);//C
                         Point D = new Point(xVector[i], yVector[j]);//D
 
-                        squares[j,i].SetA(A);
-                        squares[j,i].SetB(B);
-                        squares[j,i].SetC(C);
-                        squares[j,i].SetD(D);
+                        squares[j,i].A = A;
+                        squares[j,i].B = B;
+                        squares[j,i].C = C;
+                        squares[j,i].D = D;
 
                         IEnumerable<Line> list = squares[j,i].GetLines(threshold);
 

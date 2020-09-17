@@ -20,11 +20,5 @@ namespace G__Marching_Sqaure
             X = x;
             Y = y;
         }
-
-        public void Set(Point p)
-        {
-            X = p.X;
-            Y = p.Y;
-        }
     }
 }

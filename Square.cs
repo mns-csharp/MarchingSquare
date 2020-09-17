@@ -8,7 +8,7 @@ namespace G__Marching_Sqaure
         public Point B { get; set; }//bottom right point
         public Point C { get; set; }//top right point
         public Point D { get; set; }//top left point
-        
+
         public double A_data { get; set; }//bottom left data
         public double B_data { get; set; }//bottom right data
         public double C_data { get; set; }//top roght data
@@ -20,23 +20,6 @@ namespace G__Marching_Sqaure
             B = new Point();
             C = new Point();
             D = new Point();
-        }
-
-        public void SetA(Point a)
-        {
-            A.Set(a);
-        }
-        public void SetB(Point b)
-        {
-            B.Set(b);
-        }
-        public void SetC(Point c)
-        {
-            C.Set(c);
-        }
-        public void SetD(Point d)
-        {
-            D.Set(d);
         }
 
         private double GetCaseId(double threshold)
@@ -74,12 +57,12 @@ namespace G__Marching_Sqaure
 
             if ((caseId == 1) || (caseId == 14))
             {
-                double pX = B.X + (A.X-B.X)*((1-B_data)/(A_data-B_data));
+                double pX = B.X + (A.X - B.X) * ((1 - B_data) / (A_data - B_data));
                 double pY = B.Y;
                 Point p = new Point(pX, pY);
 
                 double qX = D.X;
-                double qY = D.Y + (A.Y-D.Y) * ((1 - D_data) / (A_data - D_data));
+                double qY = D.Y + (A.Y - D.Y) * ((1 - D_data) / (A_data - D_data));
                 Point q = new Point(qX, qY);
 
                 Line line = new Line(p, q);
@@ -102,7 +85,7 @@ namespace G__Marching_Sqaure
                 linesList.Add(line);
             }
             /*3==12*/
-            if ((caseId == 3) || (caseId == 12))///////////////////////////////////////////
+            if ((caseId == 3) || (caseId == 12))
             {
                 double pX = A.X;
                 double pY = A.Y + (D.Y - A.Y) * ((1 - A_data) / (D_data - A_data));
@@ -163,65 +146,49 @@ namespace G__Marching_Sqaure
                 linesList.Add(line);
             }
 
-            /* Ambiguous cases*/
-            //if ((caseId == 5) || (caseId == 10))
-           // {
-               // int caseTempId = 0;
-               // int randVal = StaticRandomNumber.GetRandom(1, 11);
+            /*ambiguous case*/
+            if (caseId == 5)
+            {
+                double pX1 = A.X + (B.X - A.X) * ((1 - A_data) / (B_data - A_data));
+                double pY1 = A.Y;
+                Point p1 = new Point(pX1, pY1);
+                double qX1 = C.X;
+                double qY1 = C.Y + (B.Y - C.Y) * ((1 - C_data) / (B_data - C_data));
+                Point q1 = new Point(qX1, qY1);
+                Line line1 = new Line(p1, q1);
 
-               // if (randVal % 2 == 0)
-                //{
-                //    caseTempId = 5;
-               // }
-               // else
-               // {
-               //     caseTempId = 10;
-               // }
+                double pX2 = C.X + (D.X - C.X) * ((1 - C_data) / (D_data - C_data));
+                double pY2 = C.Y;
+                Point p2 = new Point(pX2, pY2);
+                double qX2 = A.X;
+                double qY2 = A.Y + (D.Y - A.Y) * ((1 - A_data) / (D_data - A_data));
+                Point q2 = new Point(qX2, qY2);
+                Line line2 = new Line(p2, q2);
 
-                /*ambiguous case*/
-                if (caseId == 5)
-                {
-                    double pX1 = A.X + (B.X - A.X) * ((1 - A_data) / (B_data - A_data));
-                    double pY1 = A.Y;
-                    Point p1 = new Point(pX1, pY1);
-                    double qX1 = C.X;
-                    double qY1 = C.Y + (B.Y - C.Y) * ((1 - C_data) / (B_data - C_data));
-                    Point q1 = new Point(qX1, qY1);
-                    Line line1 = new Line(p1, q1);
+                linesList.Add(line1);
+                linesList.Add(line2);
+            }
+            if (caseId == 10)
+            {
+                double pX1 = B.X + (A.X - B.X) * ((1 - B_data) / (A_data - B_data));
+                double pY1 = B.Y;
+                Point p1 = new Point(pX1, pY1);
+                double qX1 = D.X;
+                double qY1 = D.Y + (A.Y - D.Y) * ((1 - D_data) / (A_data - D_data));
+                Point q1 = new Point(qX1, qY1);
+                Line line1 = new Line(p1, q1);
 
-                    double pX2 = C.X + (D.X - C.X) * ((1 - C_data) / (D_data - C_data));
-                    double pY2 = C.Y;
-                    Point p2 = new Point(pX2, pY2);
-                    double qX2 = A.X;
-                    double qY2 = A.Y + (D.Y - A.Y) * ((1 - A_data) / (D_data - A_data));
-                    Point q2 = new Point(qX2, qY2);
-                    Line line2 = new Line(p2, q2);
+                double pX2 = D.X + (C.X - D.X) * ((1 - D_data) / (C_data - D_data));
+                double pY2 = D.Y;
+                Point p2 = new Point(pX2, pY2);
+                double qX2 = B.X;
+                double qY2 = B.Y + (C.Y - B.Y) * ((1 - B_data) / (C_data - B_data));
+                Point q2 = new Point(qX2, qY2);
+                Line line2 = new Line(p2, q2);
 
-                    linesList.Add(line1);
-                    linesList.Add(line2);
-                }
-                if (caseId == 10)
-                {
-                    double pX1 = B.X + (A.X - B.X) * ((1 - B_data) / (A_data - B_data));
-                    double pY1 = B.Y;
-                    Point p1 = new Point(pX1, pY1);
-                    double qX1 = D.X;
-                    double qY1 = D.Y + (A.Y - D.Y) * ((1 - D_data) / (A_data - D_data));
-                    Point q1 = new Point(qX1, qY1);
-                    Line line1 = new Line(p1, q1);
-
-                    double pX2 = D.X + (C.X - D.X) * ((1 - D_data) / (C_data - D_data));
-                    double pY2 = D.Y;
-                    Point p2 = new Point(pX2, pY2);
-                    double qX2 = B.X;
-                    double qY2 = B.Y + (C.Y - B.Y) * ((1 - B_data) / (C_data - B_data));
-                    Point q2 = new Point(qX2, qY2);
-                    Line line2 = new Line(p2, q2);
-
-                    linesList.Add(line1);
-                    linesList.Add(line2);
-                }
-            
+                linesList.Add(line1);
+                linesList.Add(line2);
+            }
 
             return linesList;
         }

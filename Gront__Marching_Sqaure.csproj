@@ -58,7 +58,6 @@
   <ItemGroup>
     <Compile Include="Line.cs" />
     <Compile Include="MarchingSquare.cs" />
-    <Compile Include="Matrix.cs" />
     <Compile Include="DrawingForm.cs">
       <SubType>Form</SubType>
     </Compile>
