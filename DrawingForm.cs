@@ -22,17 +22,17 @@ namespace G__Marching_Sqaure
         private void MainForm_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
         {
             double[,] example = new double[,] {
-                                                
-                                                { 0,0, 0, 0, 0, 0,0 },
-                                                { 0,0, 0, 1, 1, 0,0 },
-                                                { 0,0, 0, 1, 1, 0,0 },
-                                                { 0,0, 0, 0, 1, 0,0 },
-                                                { 0,0, 0, 0, 0, 0,0 }};
+                                                { 0,0, 0, 0, 0, 0,0,0,0,0,0},
+                                                { 0,0, 1, 1, 1, 0,0,1,1,1,0 },
+                                                { 0,1, 0, 0, 0, 1,1,0,0,0,1 },
+                                                { 0,0, 1, 0, 1, 0,0,1,0,0,1 },
+                                                { 0,0, 0, 1, 0, 0,0,0,1,1,0 }
+                                            };
 
-            int[] x = new int[] {0, 50, 100, 150, 200, 250, 300};
-            int[] y = new int[] {0, 50, 100, 150, 200 };
+            int[] x = new int[] {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+            int[] y = new int[] {0, 10, 20, 30, 40 };
 
-            List<Line> collection = MarchingSquare.marching_square(x, y, example, threshold:2);
+            List<Line> collection = MarchingSquare.marching_square(x, y, example, threshold:1);
 
             Graphics g = this.CreateGraphics();
 

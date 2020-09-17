@@ -102,13 +102,19 @@ namespace G__Marching_Sqaure
                 linesList.Add(line);
             }
             /*3==12*/
-            if ((caseId == 3) || (caseId == 12))
+            if ((caseId == 3) || (caseId == 12))///////////////////////////////////////////
             {
-                
+                double pX = A.X;
+                double pY = A.Y + (D.Y - A.Y) * ((1 - A_data) / (D_data - A_data));
+                Point p = new Point(pX, pY);
 
-                //Line line = new Line(p, q);
+                double qX = C.X;
+                double qY = C.Y + (B.Y - C.Y) * ((1 - C_data) / (B_data - C_data));
+                Point q = new Point(qX, qY);
 
-                //linesList.Add(line);
+                Line line = new Line(p, q);
+
+                linesList.Add(line);
             }
             /*4==11*/
             if ((caseId == 4) || (caseId == 11))
@@ -128,11 +134,17 @@ namespace G__Marching_Sqaure
             /*6==9*/
             if ((caseId == 6) || (caseId == 9))
             {
-                
+                double pX = A.X + (B.X - A.X) * ((1 - A_data) / (B_data - A_data));
+                double pY = A.Y;
+                Point p = new Point(pX, pY);
 
-                //Line line = new Line(p, q);
+                double qX = C.X + (D.X - C.X) * ((1 - C_data) / (D_data - C_data));
+                double qY = C.Y;
+                Point q = new Point(qX, qY);
 
-                //linesList.Add(line);
+                Line line = new Line(p, q);
+
+                linesList.Add(line);
             }
 
             /*7==8*/
@@ -152,22 +164,22 @@ namespace G__Marching_Sqaure
             }
 
             /* Ambiguous cases*/
-            if ((caseId == 5) || (caseId == 10))
-            {
-                int caseTempId = 0;
-                int randVal = StaticRandomNumber.GetRandom(1, 11);
+            //if ((caseId == 5) || (caseId == 10))
+           // {
+               // int caseTempId = 0;
+               // int randVal = StaticRandomNumber.GetRandom(1, 11);
 
-                if (randVal % 2 == 0)
-                {
-                    caseTempId = 5;
-                }
-                else
-                {
-                    caseTempId = 10;
-                }
+               // if (randVal % 2 == 0)
+                //{
+                //    caseTempId = 5;
+               // }
+               // else
+               // {
+               //     caseTempId = 10;
+               // }
 
                 /*ambiguous case*/
-                if (caseTempId == 5)
+                if (caseId == 5)
                 {
                     double pX1 = A.X + (B.X - A.X) * ((1 - A_data) / (B_data - A_data));
                     double pY1 = A.Y;
@@ -188,7 +200,7 @@ namespace G__Marching_Sqaure
                     linesList.Add(line1);
                     linesList.Add(line2);
                 }
-                if (caseTempId == 10)
+                if (caseId == 10)
                 {
                     double pX1 = B.X + (A.X - B.X) * ((1 - B_data) / (A_data - B_data));
                     double pY1 = B.Y;
@@ -209,7 +221,7 @@ namespace G__Marching_Sqaure
                     linesList.Add(line1);
                     linesList.Add(line2);
                 }
-            }
+            
 
             return linesList;
         }
