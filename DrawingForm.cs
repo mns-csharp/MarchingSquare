@@ -38,26 +38,26 @@ namespace G__Marching_Sqaure
             }
 
             /////////////////////SIN-COS/////////////////////////////
-            threshold = 0.9;
-            double[,] example = new double[height, width];
-            for (int j = 0; j < height; j++)
-            {
-                for (int i = 0; i < width; i++)
-                {
-                    double example_l = Math.Sin(i / resolution) * Math.Cos(j / resolution);
-                    example[j, i] = example_l;
-                }
-            }
+            //threshold = 0.9;
+            //double[,] example = new double[height, width];
+            //for (int j = 0; j < height; j++)
+            //{
+            //    for (int i = 0; i < width; i++)
+            //    {
+            //        double example_l = Math.Sin(i / resolution) * Math.Cos(j / resolution);
+            //        example[j, i] = example_l;
+            //    }
+            //}
             /////////////////////SIN-COS/////////////////////////////
 
 
             ///////////////////////CSV////////////////////////
-            //threshold = 0.5;
-            //string[,] data = CSV_ToArray("data.csv", ",");
-            //height = data.GetLength(0);
-            //width = data.GetLength(1);
-            //double[,] example = new double[height, width];
-            //example = ToDouble(data);
+            threshold = 0.5;
+            string[,] data = CSV_ToArray("data.csv", ",");
+            height = data.GetLength(0);
+            width = data.GetLength(1);
+            double[,] example = new double[height, width];
+            example = ToDouble(data);
             ///////////////////////CSV////////////////////////
 
             List<Line> collection = MarchingSquare.marching_square(x, y, example, threshold);
