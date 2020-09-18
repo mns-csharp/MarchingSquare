@@ -13,23 +13,24 @@ namespace G__Marching_Sqaure
         }
 
         /*
-         * 
-           j = yVector = Height = Rows = 5 = Getlength(0)
-           i = xVector = Width = Cols = 7 = Getlength(1)  
-             
-             */
+         * j = yVector = Height = Rows = 5 = Getlength(0)
+         * i = xVector = Width = Cols = 7 = Getlength(1)  
+         */
 
         private void MainForm_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
         {
             int height = 500;
-            int width = 250;
+            int width = height;
+            double resolution = 50;
+            double threshold = 0.9;
+
             double[,] example = new double[height, width];
 
             for (int j = 0; j < height; j++)
             {
                 for (int i = 0; i < width; i++)
                 {
-                    double example_l = Math.Sin(i / 100.0) * Math.Cos(j / 100.0);
+                    double example_l = Math.Sin(i/ resolution) * Math.Cos(j/ resolution);
                     example[j, i] = example_l;
                 }
             }
@@ -47,7 +48,7 @@ namespace G__Marching_Sqaure
                 y[j] = j;
             }
 
-            List<Line> collection = MarchingSquare.marching_square(x, y, example, threshold:0.9);
+            List<Line> collection = MarchingSquare.marching_square(x, y, example, threshold);
 
             Graphics g = this.CreateGraphics();
 

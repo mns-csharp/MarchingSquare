@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gront__Marching_Sqaure", "G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Array2dTraverse", "Array2dTraverse\Array2dTraverse.csproj", "{A36F8FDB-562B-426F-8B6E-A3524EAC7AF0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheUnitTestClassLibrary", "..\TheUnitTestClassLibrary\TheUnitTestClassLibrary.csproj", "{182B6E37-9C7B-4C19-8AF0-BB5599419F2E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A36F8FDB-562B-426F-8B6E-A3524EAC7AF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A36F8FDB-562B-426F-8B6E-A3524EAC7AF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A36F8FDB-562B-426F-8B6E-A3524EAC7AF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{182B6E37-9C7B-4C19-8AF0-BB5599419F2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{182B6E37-9C7B-4C19-8AF0-BB5599419F2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{182B6E37-9C7B-4C19-8AF0-BB5599419F2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{182B6E37-9C7B-4C19-8AF0-BB5599419F2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
