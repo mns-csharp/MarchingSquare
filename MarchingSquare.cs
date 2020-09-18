@@ -30,10 +30,10 @@ namespace G__Marching_Sqaure
                         double c = Data[j + 1, i + 1];
                         double d = Data[j + 1, i];
 
-                        Point A = new Point(j, i);//A
-                        Point B = new Point(j, i + 1);//B
-                        Point C = new Point(j + 1, i + 1);//C
-                        Point D = new Point(j + 1, i);//D
+                        Point A = new Point(xVector[j], yVector[i]);//A
+                        Point B = new Point(xVector[j], yVector[i + 1]);//B
+                        Point C = new Point(xVector[j + 1], yVector[i+1]);//C
+                        Point D = new Point(xVector[j+1], yVector[i]);//D
 
                         squares[j,i].A_data = a;//A
                         squares[j,i].B_data = b;//B

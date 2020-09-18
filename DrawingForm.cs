@@ -21,7 +21,7 @@ namespace G__Marching_Sqaure
         {
             int height = 500;
             int width = height;
-            double resolution = 50;
+            double resolution = 2;
             double threshold = 0.9;
 
             double[,] example = new double[height, width];
@@ -45,7 +45,7 @@ namespace G__Marching_Sqaure
 
             for (int j = 0; j < height; j++)
             {
-                y[j] = j;
+                y[j] = j*10;
             }
 
             List<Line> collection = MarchingSquare.marching_square(x, y, example, threshold);

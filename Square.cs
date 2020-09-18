@@ -1,273 +1,194 @@
-﻿using System;
+﻿using G__Marching_Sqaure;
 using System.Collections.Generic;
 
-namespace G__Marching_Sqaure
+public class Square
 {
-    public class Square
+    public Point A { get; set; }//bottom left point
+    public Point B { get; set; }//bottom right point
+    public Point C { get; set; }//top right point
+    public Point D { get; set; }//top left point
+
+    public double A_data { get; set; }//bottom left data
+    public double B_data { get; set; }//bottom right data
+    public double C_data { get; set; }//top roght data
+    public double D_data { get; set; }//top left data
+
+    public Square()
     {
-        public Point A { get; set; } //bottom left point
-        public Point B { get; set; } //bottom right point
-        public Point C { get; set; } //top right point
-        public Point D { get; set; } //top left point
-
-        public double A_data { get; set; } //bottom left data
-        public double B_data { get; set; } //bottom right data
-        public double C_data { get; set; } //top roght data
-        public double D_data { get; set; } //top left data
-
-        public Square()
-        {
-            A = new Point();
-            B = new Point();
-            C = new Point();
-            D = new Point();
-        }
-
-        public LineShapes GetCaseId(double threshold)
-        {
-            int caseId = 0;
-
-            if (A_data >= threshold)
-            {
-                caseId |= 1;
-            }
-
-            if (B_data >= threshold)
-            {
-                caseId |= 2;
-            }
-
-            if (C_data >= threshold)
-            {
-                caseId |= 4;
-            }
-
-            if (D_data >= threshold)
-            {
-                caseId |= 8;
-            }
-
-            return (LineShapes)caseId;
-        }
-
-        public List<Line> GetLines(double Threshold)
-        {
-            List<Line> linesList = new List<Line>();
-
-            LineShapes caseId = GetCaseId(Threshold);
-
-            if (caseId == LineShapes.Empty)
-            {
-                /*do nothing*/
-            }
-
-            if (caseId == LineShapes.All)
-            {
-                /*do nothing*/
-            }
-
-            if ((caseId == LineShapes.BottomLeft) || (caseId == LineShapes.AllButButtomLeft))
-            {
-                var p = InterpolateHorizonal(B, A, B_data, A_data);
-                var q = InterpolateVertical(D, A, D_data, A_data);
-                Line line = new Line(p, q);
-                linesList.Add(line);
-            }
-
-            /*2==13*/
-            if ((caseId == LineShapes.BottomRight) || (caseId == LineShapes.AllButButtomRight)) //B
-            {
-                var p = InterpolateHorizonal(A, B, A_data, B_data);
-                var q = InterpolateVertical(C, B, C_data, B_data);
-                Line line = new Line(p, q);
-
-                linesList.Add(line);
-            }
-
-            /*3==12*/
-            if ((caseId == LineShapes.Bottom) || (caseId == LineShapes.Top))
-            {
-                // interpolate vertical
-                var p = InterpolateVertical(A, D, A_data, D_data);
-                var q = InterpolateVertical(C, B, C_data, B_data);
-                Line line = new Line(p, q);
-                linesList.Add(line);
-            }
-
-            /*4==11*/
-            if ((caseId == LineShapes.TopRight) || (caseId == LineShapes.AllButTopRight))
-            {
-                var p = InterpolateHorizonal(D, C, D_data, C_data);
-                var q = InterpolateVertical(B, C, B_data, C_data);
-                Line line = new Line(p, q);
-                linesList.Add(line);
-            }
-
-            /*6==9*/
-            if ((caseId == LineShapes.Right) || (caseId == LineShapes.Left))
-            {
-                var p = InterpolateHorizonal(A, B, A_data, B_data);
-                var q = InterpolateHorizonal(C, D, C_data, D_data);
-                Line line = new Line(p, q);
-
-                linesList.Add(line);
-            }
-
-            /*7==8*/
-            if ((caseId == LineShapes.AllButTopLeft) || (caseId == LineShapes.TopLeft))
-            {
-                var p = InterpolateHorizonal(C, D, C_data, D_data);
-                var q = InterpolateVertical(A, D, A_data, D_data);
-                Line line = new Line(p, q);
-                linesList.Add(line);
-            }
-
-            /*ambiguous case*/
-            if (caseId == LineShapes.TopRightBottomLeft)
-            {
-                var p1 = InterpolateHorizonal(A, B, A_data, B_data);
-                var q1 = InterpolateVertical(C, B, C_data, B_data);
-                Line line1 = new Line(p1, q1);
-
-                var p2 = InterpolateHorizonal(C, D, C_data, D_data);
-                var q2 = InterpolateVertical(A, D, A_data, D_data);
-                Line line2 = new Line(p2, q2);
-
-                linesList.Add(line1);
-                linesList.Add(line2);
-            }
-
-            if (caseId == LineShapes.TopLeftBottomRight)
-            {
-                var p1 = InterpolateHorizonal(B, A, B_data, A_data);
-                var q1 = InterpolateVertical(D, A, D_data, A_data);
-                Line line1 = new Line(p1, q1);
-
-                var p2 = InterpolateHorizonal(D, C, D_data, C_data);
-                var q2 = InterpolateVertical(B, C, B_data, C_data);
-                Line line2 = new Line(p2, q2);
-
-                linesList.Add(line1);
-                linesList.Add(line2);
-            }
-
-            return linesList;
-        }
-
-        private static Point InterpolateVertical(Point point, Point point1, double data, double data1)
-        {
-            double qX = point.X;
-            double qY = point.Y + (point1.Y - point.Y) * ((1 - data) / (data1 - data));
-            Point q = new Point(qX, qY);
-            return q;
-        }
-
-
-        private static Point InterpolateHorizonal(Point start, Point end, double startForce, double endForce)
-        {
-            double pX = start.X + (end.X - start.X) * ((1 - startForce) / (endForce - startForce));
-            double pY = start.Y;
-            Point p = new Point(pX, pY);
-            return p;
-        }
+        A = new Point();
+        B = new Point();
+        C = new Point();
+        D = new Point();
     }
 
-    public enum LineShapes
+    private double GetCaseId(double threshold)
     {
-        Empty = 0,
-        //  ○----○
-        //  |    |
-        //  |    |
-        //  ○----○
+        int caseId = 0;
 
-        BottomLeft = 1,
-        //  ○----○
-        //  |    |
-        //  |    |
-        //  ●----○
+        if (A_data >= threshold)
+        {
+            caseId |= 1;
+        }
+        if (B_data >= threshold)
+        {
+            caseId |= 2;
+        }
+        if (C_data >= threshold)
+        {
+            caseId |= 4;
+        }
+        if (D_data >= threshold)
+        {
+            caseId |= 8;
+        }
 
-        BottomRight = 2,
-        //  ○----○
-        //  |    |
-        //  |    |
-        //  ○----●
+        return caseId;
+    }
 
-        Bottom = 3,
-        //  ○----○
-        //  |    |
-        //  |    |
-        //  ●----●
+    public List<Line> GetLines(double Threshold)
+    {
+        List<Line> linesList = new List<Line>();
 
-        TopRight = 4,
-        //  ○----●
-        //  |    |
-        //  |    |
-        //  ○----○
+        double caseId = GetCaseId(Threshold);
 
-        TopRightBottomLeft = 5,
-        //  ○----●
-        //  |    |
-        //  |    |
-        //  ●----○
+        if (caseId == 0) {/*do nothing*/ }
+        if (caseId == 15) {/*do nothing*/ }
 
-        Right = 6,
-        //  ○----●
-        //  |    |
-        //  |    |
-        //  ○----●
+        if ((caseId == 1) || (caseId == 14))
+        {
+            double pX = B.X + (A.X - B.X) * ((1 - B_data) / (A_data - B_data));
+            double pY = B.Y;
+            Point p = new Point(pX, pY);
 
-        AllButTopLeft = 7,
-        //  ○----●
-        //  |    |
-        //  |    |
-        //  ●----●
+            double qX = D.X;
+            double qY = D.Y + (A.Y - D.Y) * ((1 - D_data) / (A_data - D_data));
+            Point q = new Point(qX, qY);
 
-        TopLeft = 8,
-        //  ●----○
-        //  |    |
-        //  |    |
-        //  ○----○
+            Line line = new Line(p, q);
 
-        Left = 9,
-        //  ●----○
-        //  |    |
-        //  |    |
-        //  ●----○
+            linesList.Add(line);
+        }
+        /*2==13*/
+        if ((caseId == 2) || (caseId == 13))//B
+        {
+            double pX = A.X + (B.X - A.X) * ((1 - A_data) / (B_data - A_data));
+            double pY = A.Y;
+            Point p = new Point(pX, pY);
 
-        TopLeftBottomRight = 10,
-        //  ●----○
-        //  |    |
-        //  |    |
-        //  ○----●
+            double qX = C.X;
+            double qY = C.Y + (B.Y - C.Y) * ((1 - C_data) / (B_data - C_data));
+            Point q = new Point(qX, qY);
 
-        AllButTopRight = 11,
-        //  ●----○
-        //  |    |
-        //  |    |
-        //  ●----●
+            Line line = new Line(p, q);
 
-        Top = 12,
-        //  ●----●
-        //  |    |
-        //  |    |
-        //  ○----○
+            linesList.Add(line);
+        }
+        /*3==12*/
+        if ((caseId == 3) || (caseId == 12))
+        {
+            double pX = A.X;
+            double pY = A.Y + (D.Y - A.Y) * ((1 - A_data) / (D_data - A_data));
+            Point p = new Point(pX, pY);
 
-        AllButButtomRight = 13,
-        //  ●----●
-        //  |    |
-        //  |    |
-        //  ●----○
+            double qX = C.X;
+            double qY = C.Y + (B.Y - C.Y) * ((1 - C_data) / (B_data - C_data));
+            Point q = new Point(qX, qY);
 
-        AllButButtomLeft = 14,
-        //  ●----●
-        //  |    |
-        //  |    |
-        //  ○----●
+            Line line = new Line(p, q);
 
-        All = 15,
-        //  ●----●
-        //  |    |
-        //  |    |
-        //  ●----●
+            linesList.Add(line);
+        }
+        /*4==11*/
+        if ((caseId == 4) || (caseId == 11))
+        {
+            double pX = D.X + (C.X - D.X) * ((1 - D_data) / (C_data - D_data));
+            double pY = D.Y;
+            Point p = new Point(pX, pY);
+
+            double qX = B.X;
+            double qY = B.Y + (C.Y - B.Y) * ((1 - B_data) / (C_data - B_data));
+            Point q = new Point(qX, qY);
+
+            Line line = new Line(p, q);
+
+            linesList.Add(line);
+        }
+        /*6==9*/
+        if ((caseId == 6) || (caseId == 9))
+        {
+            double pX = A.X + (B.X - A.X) * ((1 - A_data) / (B_data - A_data));
+            double pY = A.Y;
+            Point p = new Point(pX, pY);
+
+            double qX = C.X + (D.X - C.X) * ((1 - C_data) / (D_data - C_data));
+            double qY = C.Y;
+            Point q = new Point(qX, qY);
+
+            Line line = new Line(p, q);
+
+            linesList.Add(line);
+        }
+
+        /*7==8*/
+        if ((caseId == 7) || (caseId == 8))
+        {
+            double pX = C.X + (D.X - C.X) * ((1 - C_data) / (D_data - C_data));
+            double pY = C.Y;
+            Point p = new Point(pX, pY);
+
+            double qX = A.X;
+            double qY = A.Y + (D.Y - A.Y) * ((1 - A_data) / (D_data - A_data));
+            Point q = new Point(qX, qY);
+
+            Line line = new Line(p, q);
+
+            linesList.Add(line);
+        }
+
+        /*ambiguous case*/
+        if (caseId == 5)
+        {
+            double pX1 = A.X + (B.X - A.X) * ((1 - A_data) / (B_data - A_data));
+            double pY1 = A.Y;
+            Point p1 = new Point(pX1, pY1);
+            double qX1 = C.X;
+            double qY1 = C.Y + (B.Y - C.Y) * ((1 - C_data) / (B_data - C_data));
+            Point q1 = new Point(qX1, qY1);
+            Line line1 = new Line(p1, q1);
+
+            double pX2 = C.X + (D.X - C.X) * ((1 - C_data) / (D_data - C_data));
+            double pY2 = C.Y;
+            Point p2 = new Point(pX2, pY2);
+            double qX2 = A.X;
+            double qY2 = A.Y + (D.Y - A.Y) * ((1 - A_data) / (D_data - A_data));
+            Point q2 = new Point(qX2, qY2);
+            Line line2 = new Line(p2, q2);
+
+            linesList.Add(line1);
+            linesList.Add(line2);
+        }
+        if (caseId == 10)
+        {
+            double pX1 = B.X + (A.X - B.X) * ((1 - B_data) / (A_data - B_data));
+            double pY1 = B.Y;
+            Point p1 = new Point(pX1, pY1);
+            double qX1 = D.X;
+            double qY1 = D.Y + (A.Y - D.Y) * ((1 - D_data) / (A_data - D_data));
+            Point q1 = new Point(qX1, qY1);
+            Line line1 = new Line(p1, q1);
+
+            double pX2 = D.X + (C.X - D.X) * ((1 - D_data) / (C_data - D_data));
+            double pY2 = D.Y;
+            Point p2 = new Point(pX2, pY2);
+            double qX2 = B.X;
+            double qY2 = B.Y + (C.Y - B.Y) * ((1 - B_data) / (C_data - B_data));
+            Point q2 = new Point(qX2, qY2);
+            Line line2 = new Line(p2, q2);
+
+            linesList.Add(line1);
+            linesList.Add(line2);
+        }
+
+        return linesList;
     }
 }
