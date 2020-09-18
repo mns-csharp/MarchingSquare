@@ -11,7 +11,8 @@ namespace G__Marching_Sqaure
         public DrawingForm()
         {
             InitializeComponent();
-        }
+        }  
+
 
         /*
          * j = yVector = Height = Rows = 5 = Getlength(0)
