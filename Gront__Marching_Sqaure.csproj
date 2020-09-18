@@ -68,11 +68,16 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Draw.cs" />
-    <Compile Include="Square.cs" />
+    <Compile Include="Square_2.cs" />
+    <Compile Include="Square_1.cs" />
+    <Compile Include="Square_3.cs" />
     <Compile Include="StaticRandomNumber.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="data.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
